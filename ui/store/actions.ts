@@ -3460,19 +3460,8 @@ export function detectTokens(): ThunkAction<
   };
 }
 
-export function detectNfts(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showLoadingIndication());
-    log.debug(`background.detectNfts`);
-    await submitRequestToBackground('detectNfts');
-    dispatch(hideLoadingIndication());
-    await forceUpdateMetamaskState(dispatch);
-  };
+export async function detectNfts() {
+  await submitRequestToBackground('detectNfts');
 }
 
 export function setAdvancedGasFee(
