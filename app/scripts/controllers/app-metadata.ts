@@ -9,6 +9,7 @@ export type AppMetadataControllerState = {
   previousAppVersion: string;
   previousMigrationVersion: number;
   currentMigrationVersion: number;
+  showNftAutodetectModalOnUpgrade: boolean | null;
 };
 
 /**
@@ -25,6 +26,7 @@ const defaultState: AppMetadataControllerState = {
   previousAppVersion: '',
   previousMigrationVersion: 0,
   currentMigrationVersion: 0,
+  showNftAutodetectModalOnUpgrade: false,
 };
 
 /**
@@ -95,5 +97,14 @@ export default class AppMetadataController extends EventEmitter {
         currentMigrationVersion: maybeNewMigrationVersion,
       });
     }
+  }
+
+  /**
+   * Setter for the `showNftAutodetectModalOnUpgrade` property
+   *
+   * @param val - Indicates the value of showNftAutodetectModalOnUpgrade
+   */
+  setShowNftAutodetectModalOnUpgrade(val: boolean): void {
+    this.store.updateState({ showNftAutodetectModalOnUpgrade: val });
   }
 }

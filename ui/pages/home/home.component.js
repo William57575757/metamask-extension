@@ -91,6 +91,8 @@ import FlaskHomeFooter from './flask/flask-home-footer.component';
 import InstitutionalHomeFooter from './institutional/institutional-home-footer';
 ///: END:ONLY_INCLUDE_IF
 
+import AutoDetectNftModal from '../../components/app/auto-detect-nft/auto-detect-nft-modal';
+
 function shouldCloseNotificationPopup({
   isNotification,
   totalUnapprovedCount,
@@ -154,6 +156,7 @@ export default class Home extends PureComponent {
     announcementsToShow: PropTypes.bool.isRequired,
     onboardedInThisUISession: PropTypes.bool,
     isSmartTransactionsOptInModalAvailable: PropTypes.bool.isRequired,
+    isShowNftAutodetectModal: PropTypes.bool.isRequired,
     ///: END:ONLY_INCLUDE_IF
     newNetworkAddedConfigurationId: PropTypes.string,
     isNotification: PropTypes.bool.isRequired,
@@ -194,6 +197,10 @@ export default class Home extends PureComponent {
     setNewTokensImportedError: PropTypes.func.isRequired,
     clearNewNetworkAdded: PropTypes.func,
     setActiveNetwork: PropTypes.func,
+    // eslint-disable-next-line react/no-unused-prop-types
+    setNftAutodetectModal: PropTypes.func,
+    // eslint-disable-next-line react/no-unused-prop-types
+    setShowNftAutodetectModalOnUpgrade: PropTypes.func,
     hasAllowedPopupRedirectApprovals: PropTypes.bool.isRequired,
     useExternalServices: PropTypes.bool,
     setBasicFunctionalityModalOpen: PropTypes.func,
@@ -825,6 +832,9 @@ export default class Home extends PureComponent {
       firstTimeFlowType,
       newNetworkAddedConfigurationId,
       isSmartTransactionsOptInModalAvailable,
+      isShowNftAutodetectModal,
+      setNftAutodetectModal,
+      setShowNftAutodetectModalOnUpgrade,
       ///: END:ONLY_INCLUDE_IF
       ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
       mmiPortfolioEnabled,
@@ -854,6 +864,13 @@ export default class Home extends PureComponent {
       announcementsToShow &&
       showWhatsNewPopup &&
       !showSmartTransactionsOptInModal;
+
+    // TODO show ths after token autodetect modal is merged
+    const showNftAutoDetectionModal =
+      canSeeModals &&
+      isShowNftAutodetectModal &&
+      !showSmartTransactionsOptInModal &&
+      !showWhatsNew;
 
     const showTermsOfUse =
       completedOnboarding && !onboardedInThisUISession && showTermsOfUsePopup;
@@ -891,6 +908,13 @@ export default class Home extends PureComponent {
           <SmartTransactionsOptInModal
             isOpen={showSmartTransactionsOptInModal}
             hideWhatsNewPopup={hideWhatsNewPopup}
+          />
+          <AutoDetectNftModal
+            isOpen={showNftAutoDetectionModal}
+            onClose={setNftAutodetectModal}
+            setShowNftAutodetectModalOnUpgrade={
+              setShowNftAutodetectModalOnUpgrade
+            }
           />
           {showWhatsNew ? <WhatsNewPopup onClose={hideWhatsNewPopup} /> : null}
           {!showWhatsNew && showRecoveryPhraseReminder ? (

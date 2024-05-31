@@ -50,7 +50,10 @@ import {
   getAccountType,
   ///: END:ONLY_INCLUDE_IF
 } from '../../selectors';
-import { getIsSmartTransactionsOptInModalAvailable } from '../../../shared/modules/selectors';
+import {
+  getIsSmartTransactionsOptInModalAvailable,
+  getIsShowNftAutodetectModal,
+} from '../../../shared/modules/selectors';
 
 import {
   closeNotificationPopup,
@@ -68,6 +71,8 @@ import {
   setNewTokensImported,
   setActiveNetwork,
   setNewTokensImportedError,
+  setShowNftAutodetectModal,
+  setShowNftAutodetectModalOnUpgrade,
 } from '../../store/actions';
 import {
   hideWhatsNewPopup,
@@ -200,6 +205,7 @@ const mapStateToProps = (state) => {
     ///: END:ONLY_INCLUDE_IF
     isSmartTransactionsOptInModalAvailable:
       getIsSmartTransactionsOptInModalAvailable(state),
+    isShowNftAutodetectModal: getIsShowNftAutodetectModal(state),
   };
 };
 
@@ -247,6 +253,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setActiveNetwork: (networkConfigurationId) => {
       dispatch(setActiveNetwork(networkConfigurationId));
+    },
+    setNftAutodetectModal: (val) => {
+      dispatch(setShowNftAutodetectModal(val));
+    },
+    setShowNftAutodetectModalOnUpgrade: (val) => {
+      dispatch(setShowNftAutodetectModalOnUpgrade(val));
     },
     ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
     setWaitForConfirmDeepLinkDialog: (wait) =>

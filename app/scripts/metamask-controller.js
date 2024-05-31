@@ -2111,6 +2111,7 @@ export default class MetamaskController extends EventEmitter {
         this.encryptionPublicKeyController.newRequestEncryptionPublicKey.bind(
           this.encryptionPublicKeyController,
         ),
+
       processDecryptMessage:
         this.decryptMessageController.newRequestDecryptMessage.bind(
           this.decryptMessageController,
@@ -2942,6 +2943,7 @@ export default class MetamaskController extends EventEmitter {
       networkController,
       announcementController,
       onboardingController,
+      appMetadataController,
       permissionController,
       preferencesController,
       swapsController,
@@ -3375,6 +3377,11 @@ export default class MetamaskController extends EventEmitter {
       cancelEncryptionPublicKey:
         this.encryptionPublicKeyController.cancelEncryptionPublicKey.bind(
           this.encryptionPublicKeyController,
+        ),
+
+      setShowNftAutodetectModalOnUpgrade:
+        appMetadataController.setShowNftAutodetectModalOnUpgrade.bind(
+          appMetadataController,
         ),
 
       // onboarding controller
